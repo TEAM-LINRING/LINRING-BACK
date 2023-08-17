@@ -56,10 +56,32 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
+    # 새로 추가한 앱
     "users",
-    "bootstrap4",
+    # 설치한 라이브러리
+    "rest_framework",
+    "rest_framwork.authtoken",
+    "dj_rest_auth",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "df_rest_auth.registration",
 ]
+
+# dj-rest-auth
+REST_USE_JWT = True                             # JWT 사용 여부
+JWT_AUTH_COOKIE = 'my-app-auth'                 # 호출할 cookie key 값
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'    # Refresh Token Key 값(사용하는 경우)
+
+# django-allauth
+SITE_ID = 1                                     # 해당 도메인의 id
+ACCOUNT_UNIQUE_EMAIL = True                     # User email unique 사용 여부
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None        # User username type
+ACCOUNT_USERNAME_REQUIRED = False               # User username 필수 여부
+ACCOUNT_EMAIL_REQUIRED = True                   # User email 필수 여부
+ACCOUNT_AUTHENTICATION_METHOD = 'email'         # 로그인 인증 수단
+ACCOUNT_EMAIL_VERIFICATION = 'none'             # Email 인증 필수 여
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -102,6 +124,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
