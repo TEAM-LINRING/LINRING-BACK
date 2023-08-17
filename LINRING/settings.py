@@ -60,13 +60,13 @@ INSTALLED_APPS = [
     "users",
     # 설치한 라이브러리
     "rest_framework",
-    "rest_framwork.authtoken",
+    "rest_framework.authtoken",
     "dj_rest_auth",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "df_rest_auth.registration",
+    "dj_rest_auth.registration",
 ]
 
 # dj-rest-auth
@@ -81,7 +81,7 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None        # User username type
 ACCOUNT_USERNAME_REQUIRED = False               # User username 필수 여부
 ACCOUNT_EMAIL_REQUIRED = True                   # User email 필수 여부
 ACCOUNT_AUTHENTICATION_METHOD = 'email'         # 로그인 인증 수단
-ACCOUNT_EMAIL_VERIFICATION = 'none'             # Email 인증 필수 여
+ACCOUNT_EMAIL_VERIFICATION = 'none'             # Email 인증 필수 여부
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -124,8 +124,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'users.User'
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -166,3 +164,11 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', # Token Authentication
+    ]
+}
