@@ -16,16 +16,10 @@ from django.shortcuts import render, redirect
 def userDelete(request, id):
     try:
         uid = User.objects.get(id=id)
-        # user1 = authenticate(request, email="test1@example.com", password="1q2w3e4r!@")
-        user1 = authenticate(request, email="admin@example.com", password="1234")
-        login(request, user1)
-        print(type(user1))
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'DELETE':
-        print("request user : " + request.user.email)
-        print("uid user : " + uid.email)
         if request.user.is_staff:
             pass
         elif request.user.id == id:
