@@ -77,12 +77,14 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'    # Refresh Token Key 값(사용�
 
 # django-allauth
 SITE_ID = 1                                     # 해당 도메인의 id
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_UNIQUE_EMAIL = True                     # User email unique 사용 여부
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None        # User username type
 ACCOUNT_USERNAME_REQUIRED = False               # User username 필수 여부
 ACCOUNT_EMAIL_REQUIRED = True                   # User email 필수 여부
 ACCOUNT_AUTHENTICATION_METHOD = 'email'         # 로그인 인증 수단
-ACCOUNT_EMAIL_VERIFICATION = 'none'             # Email 인증 필수 여부
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'        # Email 인증 필수 여부
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True             
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
