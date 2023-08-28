@@ -77,7 +77,16 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'    # Refresh Token Key 값(사용�
 
 # django-allauth
 SITE_ID = 1                                     # 해당 도메인의 id
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'                   # 메일 호스트 서버
+EMAIL_PORT = '587'                              # Port 번호 - gmail 통신용
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LINRING]"
 ACCOUNT_UNIQUE_EMAIL = True                     # User email unique 사용 여부
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None        # User username type
 ACCOUNT_USERNAME_REQUIRED = False               # User username 필수 여부
