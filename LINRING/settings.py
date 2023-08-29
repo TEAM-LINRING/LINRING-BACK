@@ -14,6 +14,11 @@ import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables with dotenv
+load_dotenv(verbose=True) # verbose: .env 파일 누락 등의 경고 메세지를 출력하는 옵션
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,7 +84,7 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'    # Refresh Token Key 값(사용�
 SITE_ID = 1                                     # 해당 도메인의 id
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'                   # 메일 호스트 서버
-EMAIL_PORT = '587'                              # Port 번호 - gmail 통신용
+EMAIL_PORT = 587                                # Port 번호 - gmail 통신용
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
