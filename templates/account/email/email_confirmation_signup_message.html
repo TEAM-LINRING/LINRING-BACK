@@ -4,7 +4,7 @@
 {% block content %}
 {% autoescape off %}
 {% user_display user as user_display %}
-{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+{% with site_name=current_site.name site_domain=current_site.domain %}
 
 <!DOCTYPE html>
 <html>
@@ -16,12 +16,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="email.css">
     <style type="text/css">
-        
     </style>
 </head>
 
 <body style="margin: 0 !important; padding: 0 !important;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <!--SVG 파일로 변경 예정-->
+            <p style="color: #1C1C1C; font-family: Pretendard; font-size: 20px; font-weight: 700; letter-spacing: 0.6px; padding: 0px 20px">LINRING</p>
+        </tr>
+        <div style="border-bottom: 1px solid #000; margin: 0px 20px;"></div>
         <tr>
             <td bgcolor="#FFF" align="center" valign="top" style="padding: 40px 0px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'NotoSerifKR', Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 400; letter-spacing: 0.66px; line-height: normal;">
                 <p>이메일 주소 인증 메일</p> 
@@ -54,6 +58,6 @@
 
 </html>
 
-{% endblocktrans %}
+{% endwith %}
 {% endautoescape %}
 {% endblock %}
