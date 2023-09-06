@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -26,6 +28,14 @@ def userDelete(request, id):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         uid.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# class registration(APIView):
+#     permission_classes = [AllowAny]
+#
+#     def Post(self, request):
+#         data = json.loads(request.body)
+#
+#         def validate_email(email=data['email'])
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny] # 전체 권한
