@@ -1,9 +1,10 @@
 import pusher
+import os
 
 pusher_client = pusher.Pusher(
-    app_id="1658637",
-    key="7a2878a2638865731056",
-    secret="7a67e2e3d744831c284e",
-    cluster="ap3",
-    ssl=True,
+    app_id=os.getenv('APP_ID'),
+    key=os.getenv('KEY'),
+    secret=os.getenv('SECRET'),
+    cluster=os.getenv('CLUSTER'),
+    ssl=bool(int(os.getenv('SSL'))),
 )
