@@ -14,6 +14,11 @@ import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables with dotenv
+load_dotenv(verbose=True) # verbose: .env 파일 누락 등의 경고 메세지를 출력하는 옵션
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,10 +61,46 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 새로 추가한 앱
+    "users",
+    # 설치한 라이브러리
     "rest_framework",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
+    "drf_yasg",
     "corsheaders",  # related CORS
     "chat",
 ]
+
+# dj-rest-auth
+REST_USE_JWT = True                             # JWT 사용 여부
+JWT_AUTH_COOKIE = 'my-app-auth'                 # 호출할 cookie key 값
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'    # Refresh Token Key 값(사용하는 경우)
+
+# django-allauth
+SITE_ID = 1                                     # 해당 도메인의 id
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'                   # 메일 호스트 서버
+EMAIL_PORT = 587                                # Port 번호 - gmail 통신용
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LINRING]"
+ACCOUNT_UNIQUE_EMAIL = True                     # User email unique 사용 여부
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None        # User username type
+ACCOUNT_USERNAME_REQUIRED = False               # User username 필수 여부
+ACCOUNT_EMAIL_REQUIRED = True                   # User email 필수 여부
+ACCOUNT_AUTHENTICATION_METHOD = 'email'         # 로그인 인증 수단
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'        # Email 인증 필수 여부
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True             
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -77,7 +118,7 @@ ROOT_URLCONF = "LINRING.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates"), os.path.join(BASE_DIR, "templates", "account", "email")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -102,7 +143,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,4 +185,21 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', # Token Authentication
+    ]
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' :{
+        "api_key":{
+            'type':'apiKey',
+            'in':'header',
+            'name':'Authorization'
+        }
+    }
+}
 CORS_ORIGIN_ALLOW_ALL = True
